@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetallePedidos">
+          <Key>
+            <PropertyRef Name="nroDetallePedido" />
+          </Key>
+          <Property Name="nroDetallePedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nroPedido" Type="int" Nullable="false" />
+          <Property Name="detDetallePedido" Type="varchar" MaxLength="50" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="hora" Type="datetime" />
+          <Property Name="menu" Type="int" />
+          <Property Name="productoDeCarta" Type="int" />
+          <Property Name="tiempo" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ambito" Type="varchar" MaxLength="50" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HistorialEstado">
+          <Key>
+            <PropertyRef Name="id_historialEstado" />
+          </Key>
+          <Property Name="id_historialEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_estado" Type="int" />
+          <Property Name="fechaHoraFin" Type="datetime" />
+          <Property Name="fechaHoraInicio" Type="datetime" />
+          <Property Name="id_detallePedido" Type="int" />
+          <Property Name="id_pedido" Type="int" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id_menu" />
+          </Key>
+          <Property Name="id_menu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantidadMinimaComensales" Type="int" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="50" />
+          <Property Name="fechaCreacion" Type="datetime" />
+          <Property Name="fechaVigencia" Type="datetime" />
+          <Property Name="foto" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="Mesa">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacidadComensales" Type="int" />
+          <Property Name="espacioQueOcupa" Type="int" />
+          <Property Name="forma" Type="int" />
+          <Property Name="filaEnPlano" Type="int" />
+          <Property Name="ordenEnPlano" Type="int" />
+          <Property Name="id_estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="nroPedido" />
+          </Key>
+          <Property Name="nroPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantComensales" Type="int" />
+          <Property Name="detPedido" Type="varchar" MaxLength="50" />
+          <Property Name="factura" Type="int" />
+          <Property Name="fechaHoraPed" Type="datetime" />
+          <Property Name="id_mesa" Type="int" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" />
+          <Property Name="foto" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="receta" Type="int" />
+          <Property Name="sectorComanda" Type="int" />
+          <Property Name="tiempoPresen" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductoDeCarta">
+          <Key>
+            <PropertyRef Name="id_productoDeCarta" />
+          </Key>
+          <Property Name="id_productoDeCarta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="esFavorito" Type="int" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="id_producto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RestaurantModelStoreContainer">
+          <EntitySet Name="DetallePedidos" EntityType="Self.DetallePedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialEstado" EntityType="Self.HistorialEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesa" EntityType="Self.Mesa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoDeCarta" EntityType="Self.ProductoDeCarta" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetallePedidos">
+          <Key>
+            <PropertyRef Name="nroDetallePedido" />
+          </Key>
+          <Property Name="nroDetallePedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nroPedido" Type="Int32" Nullable="false" />
+          <Property Name="detDetallePedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="hora" Type="DateTime" Precision="3" />
+          <Property Name="menu" Type="Int32" />
+          <Property Name="productoDeCarta" Type="Int32" />
+          <Property Name="tiempo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ambito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="HistorialEstado">
+          <Key>
+            <PropertyRef Name="id_historialEstado" />
+          </Key>
+          <Property Name="id_historialEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_estado" Type="Int32" />
+          <Property Name="fechaHoraFin" Type="DateTime" Precision="3" />
+          <Property Name="fechaHoraInicio" Type="DateTime" Precision="3" />
+          <Property Name="id_detallePedido" Type="Int32" />
+          <Property Name="id_pedido" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id_menu" />
+          </Key>
+          <Property Name="id_menu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantidadMinimaComensales" Type="Int32" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="fechaVigencia" Type="DateTime" Precision="3" />
+          <Property Name="foto" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="Mesa">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacidadComensales" Type="Int32" />
+          <Property Name="espacioQueOcupa" Type="Int32" />
+          <Property Name="forma" Type="Int32" />
+          <Property Name="filaEnPlano" Type="Int32" />
+          <Property Name="ordenEnPlano" Type="Int32" />
+          <Property Name="id_estado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="nroPedido" />
+          </Key>
+          <Property Name="nroPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantComensales" Type="Int32" />
+          <Property Name="detPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="factura" Type="Int32" />
+          <Property Name="fechaHoraPed" Type="DateTime" Precision="3" />
+          <Property Name="id_mesa" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="foto" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="receta" Type="Int32" />
+          <Property Name="sectorComanda" Type="Int32" />
+          <Property Name="tiempoPresen" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductoDeCarta">
+          <Key>
+            <PropertyRef Name="id_productoDeCarta" />
+          </Key>
+          <Property Name="id_productoDeCarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="esFavorito" Type="Int32" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="id_producto" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RestaurantEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetallePedidos" EntityType="Self.DetallePedidos" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="HistorialEstado" EntityType="Self.HistorialEstado" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Mesa" EntityType="Self.Mesa" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="ProductoDeCarta" EntityType="Self.ProductoDeCarta" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestaurantModelStoreContainer" CdmEntityContainer="RestaurantEntities">
+          <EntitySetMapping Name="DetallePedidos">
+            <EntityTypeMapping TypeName="RestaurantModel.DetallePedidos">
+              <MappingFragment StoreEntitySet="DetallePedidos">
+                <ScalarProperty Name="nroDetallePedido" ColumnName="nroDetallePedido" />
+                <ScalarProperty Name="nroPedido" ColumnName="nroPedido" />
+                <ScalarProperty Name="detDetallePedido" ColumnName="detDetallePedido" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="menu" ColumnName="menu" />
+                <ScalarProperty Name="productoDeCarta" ColumnName="productoDeCarta" />
+                <ScalarProperty Name="tiempo" ColumnName="tiempo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="RestaurantModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="ambito" ColumnName="ambito" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialEstado">
+            <EntityTypeMapping TypeName="RestaurantModel.HistorialEstado">
+              <MappingFragment StoreEntitySet="HistorialEstado">
+                <ScalarProperty Name="id_historialEstado" ColumnName="id_historialEstado" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="fechaHoraFin" ColumnName="fechaHoraFin" />
+                <ScalarProperty Name="fechaHoraInicio" ColumnName="fechaHoraInicio" />
+                <ScalarProperty Name="id_detallePedido" ColumnName="id_detallePedido" />
+                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="RestaurantModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="id_menu" ColumnName="id_menu" />
+                <ScalarProperty Name="cantidadMinimaComensales" ColumnName="cantidadMinimaComensales" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="fechaVigencia" ColumnName="fechaVigencia" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesa">
+            <EntityTypeMapping TypeName="RestaurantModel.Mesa">
+              <MappingFragment StoreEntitySet="Mesa">
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="capacidadComensales" ColumnName="capacidadComensales" />
+                <ScalarProperty Name="espacioQueOcupa" ColumnName="espacioQueOcupa" />
+                <ScalarProperty Name="forma" ColumnName="forma" />
+                <ScalarProperty Name="filaEnPlano" ColumnName="filaEnPlano" />
+                <ScalarProperty Name="ordenEnPlano" ColumnName="ordenEnPlano" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="RestaurantModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="nroPedido" ColumnName="nroPedido" />
+                <ScalarProperty Name="cantComensales" ColumnName="cantComensales" />
+                <ScalarProperty Name="detPedido" ColumnName="detPedido" />
+                <ScalarProperty Name="factura" ColumnName="factura" />
+                <ScalarProperty Name="fechaHoraPed" ColumnName="fechaHoraPed" />
+                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="RestaurantModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="receta" ColumnName="receta" />
+                <ScalarProperty Name="sectorComanda" ColumnName="sectorComanda" />
+                <ScalarProperty Name="tiempoPresen" ColumnName="tiempoPresen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoDeCarta">
+            <EntityTypeMapping TypeName="RestaurantModel.ProductoDeCarta">
+              <MappingFragment StoreEntitySet="ProductoDeCarta">
+                <ScalarProperty Name="id_productoDeCarta" ColumnName="id_productoDeCarta" />
+                <ScalarProperty Name="esFavorito" ColumnName="esFavorito" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

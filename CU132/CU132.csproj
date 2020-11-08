@@ -127,12 +127,14 @@
     <Compile Include="InterfacesDeUsuario\InterfazMonitor.Designer.cs">
       <DependentUpon>InterfazMonitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IObservadorDetallePedido.cs" />
     <Compile Include="InterfacesDeUsuario\PantallaFinalizarPreparacionPedido.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfacesDeUsuario\PantallaFinalizarPreparacionPedido.Designer.cs">
       <DependentUpon>PantallaFinalizarPreparacionPedido.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ISujetoPedido.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="InterfacesDeUsuario\InterfazDispositivoMovil.resx">

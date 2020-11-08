@@ -3,14 +3,21 @@ using CU132.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
+using CU132.Interfaces;
 
 namespace CU132.Gestores
 {
-    class GestorFinalizarPreparacionPedido
+    class GestorFinalizarPreparacionPedido : ISujetoPedido
     {
+
+        private List<DetallePedido> detallePedidosEnPreparacion = new List<DetallePedido>();
+
+        private List<DetallePedido> detallePedidosEnPrepSeleccionados = new List<DetallePedido>();
+
+        private List<IObservadorDetallePedido> observadores = new List<IObservadorDetallePedido>();
+        
+        
         //Gestor Como Singleton.
         private GestorFinalizarPreparacionPedido() { }
         private static GestorFinalizarPreparacionPedido _instance;
@@ -23,7 +30,8 @@ namespace CU132.Gestores
             return _instance;
         }
 
-        
+       
+
         public void FinalizarPedido()
         {
             BuscarDetallesEnPreparacion();
@@ -32,7 +40,7 @@ namespace CU132.Gestores
         public void BuscarDetallesEnPreparacion()
         {
             Estado enPreparacion = null;
-            List<DetallePedido> detallePedidosEnPreparacion = new List<DetallePedido>();
+            
 
             using (var contextDB = new EntitiesDataBase())
             {
@@ -86,19 +94,25 @@ namespace CU132.Gestores
             var numeroMesa=0;
 
 
-            nombre = detallePedidoEnPrepa.ProductoDeCarta.Producto.nombre;
-            if (nombre == null)
+
+            if (detallePedidoEnPrepa.ProductoDeCarta != null)
+                nombre = detallePedidoEnPrepa.ProductoDeCarta.Producto.nombre;
+            
+            if ((nombre == null || nombre =="") && detallePedidoEnPrepa.Menu != null)
                 nombre = detallePedidoEnPrepa.Menu.nombre;
 
             cantidad = detallePedidoEnPrepa.cantidad;
 
             numeroMesa = buscarMesaDelDetalleEnPreparacion(detallePedidoEnPrepa);
 
-            //get Pantalla.
-            PantallaFinalizarPreparacionPedido lastOpenedForm = Application.OpenForms.Cast<PantallaFinalizarPreparacionPedido>().Last();
-            lastOpenedForm.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre,cantidad);
+            int nroIdentificacionDetalle = detallePedidoEnPrepa.nroDetallePedido;
+
+            //Pasarle los datos a la Pantalla.
+            PantallaFinalizarPreparacionPedido pantalla = Application.OpenForms.Cast<PantallaFinalizarPreparacionPedido>().Last();
+            pantalla.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre,cantidad, nroIdentificacionDetalle);
             
         }
+
 
         private int buscarMesaDelDetalleEnPreparacion(DetallePedido detallePedidoEnPrepa)
         {
@@ -112,6 +126,39 @@ namespace CU132.Gestores
             return listaDetallePedido;
         }
 
-        
+        public void Notificar()
+        {
+            foreach (var observador in this.observadores)
+            {
+                observador.visualizar();//Meter todos los parametros.
+            }
+        }
+
+        public void Quitar(IObservadorDetallePedido[] observadores){
+            foreach (var observador in observadores)
+                if(this.observadores.Contains(observador))
+                    this.observadores.Remove(observador);
+        }
+
+        public void Subscribir(IObservadorDetallePedido[] observadores){
+            foreach (var observador in observadores)
+                if (!this.observadores.Contains(observador))
+                    this.observadores.Add(observador);
+        }
+
+
+        public void ConfirmacionElaboracion(List<int> id_detalles_Seleccionados)
+        {
+
+            foreach (int id in id_detalles_Seleccionados)
+            {
+                detallePedidosEnPrepSeleccionados.Add(detallePedidosEnPreparacion.Find(dp => dp.nroDetallePedido == id));
+            }
+                
+                var a = 2;
+            
+            //actualizar
+            
+        }
     }
 }

@@ -14,11 +14,19 @@ namespace CU132.InterfacesDeUsuario
         public InterfazMonitor()
         {
             InitializeComponent();
+            //Posiciones
+            this.StartPosition = 0;
+            this.Left = 0;
+            this.Top = 490;
+
         }
 
-        public void visualizar()
+
+        public void Visualizar(int sumaProductos)
         {
-            throw new NotImplementedException();
+            dataGridView1.Rows.Add("Todas las Mesas", sumaProductos);
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
     }
 }

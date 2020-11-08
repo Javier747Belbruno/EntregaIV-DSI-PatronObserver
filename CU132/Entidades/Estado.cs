@@ -43,10 +43,16 @@ namespace CU132.Entidades
             return false;
         }
 
+        public bool EsListoParaServir(){
+            if (nombre == "Listo para servir")
+                return true;
+            return false;
+        }
+
         // override object.Equals
         public override bool Equals(object obj)
         {
-            // Perform an equality check on two rectangles (Point object pairs).
+            // Perform an equality check on two States (Scope and Name have to be the same).
             if (obj == null || GetType() != obj.GetType())
                 return false;
             Estado e = (Estado)obj;

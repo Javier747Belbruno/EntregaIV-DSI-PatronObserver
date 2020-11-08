@@ -1,6 +1,8 @@
 ﻿using CU132.Gestores;
+using CU132.InterfacesDeUsuario;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CU132
@@ -13,6 +15,23 @@ namespace CU132
             InitializeComponent();
             dataGridView1.Visible = false;
             btnSeleccionarDetallesPedidos.Visible = false;
+            dataGridView1.Columns[5].Visible = false;
+            lblResultado.Visible = false;
+
+            //Inicio de los observadores.
+            InterfazMonitor interfazMonitor = new InterfazMonitor();
+            interfazMonitor.Show(); 
+
+            InterfazDispositivoMovil interfazDispositivoMovil = new InterfazDispositivoMovil();
+            interfazDispositivoMovil.Show();
+
+            //Posicion
+            this.StartPosition = 0;
+
+            this.Left = 0;
+            this.Top = 40;
+
+            
         }
         
 
@@ -33,6 +52,7 @@ namespace CU132
 
         private void abrirVentana()
         {
+
             GestorFinalizarPreparacionPedido.GetInstance().FinalizarPedido();
             
         }
@@ -53,7 +73,7 @@ namespace CU132
         {
             int filasSeleccionadas = 0;
             List<int> id_detalles_Seleccionados = new List<int>();
-            dataGridView1.Columns[5].Visible = true;
+           
             foreach (DataGridViewRow row in dataGridView1.Rows){
                 
                 bool rowSelected = (bool)row.Cells[4].Value;
@@ -86,8 +106,17 @@ namespace CU132
 
         private void tomarConfirmacionElaboracion(List<int> id_detalles_Seleccionados)
         {
-            var a = id_detalles_Seleccionados;
             GestorFinalizarPreparacionPedido.GetInstance().ConfirmacionElaboracion(id_detalles_Seleccionados);
+            this.dataGridView1.Visible = false;
+            this.btnSeleccionarDetallesPedidos.Visible = false;
+            
+
+        }
+
+        public void Resultado(String result) {
+            lblResultado.Visible = true;
+            lblResultado.Text = result;
+
         }
     }
 }

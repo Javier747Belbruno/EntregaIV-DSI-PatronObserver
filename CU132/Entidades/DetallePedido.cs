@@ -12,7 +12,8 @@ namespace CU132.Entidades
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class DetallePedido : IComparable
     {
         public int nroDetallePedido { get; set; }
@@ -55,6 +56,36 @@ namespace CU132.Entidades
            throw new ArgumentException("El objeto no es un DetallePedido");
         }
 
+        public void Finalizar(DateTime horaFinalizacion, Estado listoParaServir)
+        {
+            setearFinUltimoHistoria(horaFinalizacion, listoParaServir);
+        }
 
+        public void setearFinUltimoHistoria(DateTime hora, Estado listoParaServir)
+        {
+            HistorialEstado.setFechaHoraFin(hora);
+            CrearHistoria(listoParaServir,hora);
+        }
+
+        private void CrearHistoria(Estado listoParaServir, DateTime hora)
+        {
+           
+            using (var contextDB = new EntitiesDataBase())
+            {
+                HistorialEstado nuevaHistoriaEstado 
+                    = new HistorialEstado { fechaHoraFin = null,
+                                            fechaHoraInicio = hora,
+                                            estado=listoParaServir.id_estado };
+                contextDB.HistorialEstado.Add(nuevaHistoriaEstado);
+                contextDB.SaveChanges();
+
+                var result = contextDB.DetallePedidos.SingleOrDefault(dp => dp.nroDetallePedido == this.nroDetallePedido);
+                if (result != null)
+                {
+                    result.HistorialEstado = nuevaHistoriaEstado;
+                    contextDB.SaveChanges();
+                }
+            }
+        }
     }
 }

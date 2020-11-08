@@ -35,8 +35,9 @@
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnSeleccionarDetallesPedidos = new System.Windows.Forms.Button();
             this.id_detalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSeleccionarDetallesPedidos = new System.Windows.Forms.Button();
+            this.lblResultado = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,6 +109,14 @@
             this.CheckBox.Name = "CheckBox";
             this.CheckBox.Width = 150;
             // 
+            // id_detalle
+            // 
+            this.id_detalle.HeaderText = "id";
+            this.id_detalle.MinimumWidth = 8;
+            this.id_detalle.Name = "id_detalle";
+            this.id_detalle.Visible = false;
+            this.id_detalle.Width = 150;
+            // 
             // btnSeleccionarDetallesPedidos
             // 
             this.btnSeleccionarDetallesPedidos.Location = new System.Drawing.Point(529, 531);
@@ -118,19 +127,21 @@
             this.btnSeleccionarDetallesPedidos.UseVisualStyleBackColor = true;
             this.btnSeleccionarDetallesPedidos.Click += new System.EventHandler(this.btnSeleccionarDetallesPedidos_Click);
             // 
-            // id_detalle
+            // lblResultado
             // 
-            this.id_detalle.HeaderText = "id";
-            this.id_detalle.MinimumWidth = 8;
-            this.id_detalle.Name = "id_detalle";
-            this.id_detalle.Visible = false;
-            this.id_detalle.Width = 150;
+            this.lblResultado.AutoSize = true;
+            this.lblResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.lblResultado.Location = new System.Drawing.Point(150, 221);
+            this.lblResultado.Name = "lblResultado";
+            this.lblResultado.Size = new System.Drawing.Size(0, 58);
+            this.lblResultado.TabIndex = 3;
             // 
             // PantallaFinalizarPreparacionPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1285, 626);
+            this.Controls.Add(this.lblResultado);
             this.Controls.Add(this.btnSeleccionarDetallesPedidos);
             this.Controls.Add(this.btn_FinalizarPrepPedido);
             this.Controls.Add(this.dataGridView1);
@@ -139,6 +150,7 @@
             this.Text = "Pantalla Finalizar Preparación Pedido";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -153,6 +165,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckBox;
         private System.Windows.Forms.Button btnSeleccionarDetallesPedidos;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_detalle;
+        private System.Windows.Forms.Label lblResultado;
     }
 }
 

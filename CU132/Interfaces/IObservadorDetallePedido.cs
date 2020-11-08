@@ -7,6 +7,6 @@ namespace CU132.Interfaces
 {
     interface IObservadorDetallePedido
     {
-        void visualizar();
+        void Visualizar(int sumaProductos);
     }
 }

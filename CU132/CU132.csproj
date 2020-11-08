@@ -154,6 +154,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
     <EntityDeploy Include="Entidades\EntityDataModel.edmx">
@@ -188,6 +189,8 @@
       <DependentUpon>EntityDataModel.edmx</DependentUpon>
       <LastGenOutput>EntityDataModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\YouTube-Bell-Icon-PNG-Photos.png" />
+    <None Include="Resources\blackbell2.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

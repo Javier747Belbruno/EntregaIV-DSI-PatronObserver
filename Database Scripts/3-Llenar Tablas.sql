@@ -110,6 +110,10 @@ INSERT INTO HistorialEstado VALUES (   NULL --frcha hora FIN
 									 , CONVERT(datetime, '8/11/2020 08:29:53', 103) -- fecha Inicio
 									 , 7) --En preparacion
 
+INSERT INTO HistorialEstado VALUES (   NULL --frcha hora FIN
+									 , CONVERT(datetime, '8/11/2020 08:35:53', 103) -- fecha Inicio
+									 , 7) --En preparacion
+
 
 --HISTORIAL ESTADO DE PEDIDO.
 
@@ -186,6 +190,15 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,3 -- id HistorialPedido
 									,NULL
 									,2);  --ProductoDeCarta
+
+INSERT INTO DetallePedidos VALUES(   NULL
+									,3 --cantidad
+									,CONVERT(datetime, '8/11/2020 08:32:00', 103) --hora
+									,2
+									,1 -- Ligado al nroPedido 2
+									,9 -- id HistorialPedido
+									,1 -- Un Menu patagonico
+									,NULL);  --ProductoDeCarta
 									
 
 
@@ -203,9 +216,11 @@ select * from Estado where nombre = 'En preparacion'
 */
 
 /*update HistorialEstado set id_estado = 7 where id_historialEstado in (5,6)*/
+/*
+update DetallePedidos set id_historialEstado = 6 where nroDetallePedido = 1
+update DetallePedidos set id_historialEstado = 5 where nroDetallePedido = 2
 
-
-
+*/
 
 
 

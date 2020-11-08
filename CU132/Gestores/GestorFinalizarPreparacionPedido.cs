@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using CU132.Interfaces;
+using System.CodeDom;
+using CU132.InterfacesDeUsuario;
+using System.Data.Entity.Core.Mapping;
 
 namespace CU132.Gestores
 {
@@ -16,8 +19,8 @@ namespace CU132.Gestores
         private List<DetallePedido> detallePedidosEnPrepSeleccionados = new List<DetallePedido>();
 
         private List<IObservadorDetallePedido> observadores = new List<IObservadorDetallePedido>();
-        
-        
+
+
         //Gestor Como Singleton.
         private GestorFinalizarPreparacionPedido() { }
         private static GestorFinalizarPreparacionPedido _instance;
@@ -30,7 +33,7 @@ namespace CU132.Gestores
             return _instance;
         }
 
-       
+
 
         public void FinalizarPedido()
         {
@@ -40,20 +43,21 @@ namespace CU132.Gestores
         public void BuscarDetallesEnPreparacion()
         {
             Estado enPreparacion = null;
-            
+
 
             using (var contextDB = new EntitiesDataBase())
             {
                 List<Estado> estadosDetallePedido = new List<Estado>();
 
                 var Estados = contextDB.Estado.ToList();
-                
+
 
                 foreach (var estado in Estados)
                     if (estado.EsAmbitoDetallePedido())
                         estadosDetallePedido.Add(estado);
 
-                if (estadosDetallePedido.Count != 0){
+                if (estadosDetallePedido.Count != 0)
+                {
                     foreach (var estado in estadosDetallePedido)
                         if (estado.EsEnPreparacion())
                             enPreparacion = estado;
@@ -63,25 +67,27 @@ namespace CU132.Gestores
             }
             using (var contextDB = new EntitiesDataBase())
             {
-                if (enPreparacion != null) {
-               
+                if (enPreparacion != null)
+                {
+
                     var detallePedidos = contextDB.DetallePedidos.ToList();
                     foreach (var detallePedido in detallePedidos)
                         if (detallePedido.EstaEnPreparacion(enPreparacion))
                             detallePedidosEnPreparacion.Add(detallePedido);
-                
+
                 }
 
-            detallePedidosEnPreparacion = ordenarSegunMayorTiempoDeEspera(detallePedidosEnPreparacion);
+                detallePedidosEnPreparacion = ordenarSegunMayorTiempoDeEspera(detallePedidosEnPreparacion);
 
-            //LOOP DETALLES PEDIDO EN PREPARACION
+                //LOOP DETALLES PEDIDO EN PREPARACION
 
-            
 
-            foreach (var detallePedidoEnPrepa in detallePedidosEnPreparacion){
-                var hora = detallePedidoEnPrepa.HistorialEstado.fechaHoraInicio.Value;
-                buscarInfoDetallePedido(detallePedidoEnPrepa,hora);
-            }
+
+                foreach (var detallePedidoEnPrepa in detallePedidosEnPreparacion)
+                {
+                    var hora = detallePedidoEnPrepa.HistorialEstado.fechaHoraInicio.Value;
+                    buscarInfoDetallePedido(detallePedidoEnPrepa, hora);
+                }
             }
 
 
@@ -89,16 +95,16 @@ namespace CU132.Gestores
 
         public void buscarInfoDetallePedido(DetallePedido detallePedidoEnPrepa, DateTime hora)
         {
-            var nombre="";
-            var cantidad=0;
-            var numeroMesa=0;
+            var nombre = "";
+            var cantidad = 0;
+            var numeroMesa = 0;
 
 
 
             if (detallePedidoEnPrepa.ProductoDeCarta != null)
                 nombre = detallePedidoEnPrepa.ProductoDeCarta.Producto.nombre;
-            
-            if ((nombre == null || nombre =="") && detallePedidoEnPrepa.Menu != null)
+
+            if ((nombre == null || nombre == "") && detallePedidoEnPrepa.Menu != null)
                 nombre = detallePedidoEnPrepa.Menu.nombre;
 
             cantidad = detallePedidoEnPrepa.cantidad;
@@ -107,10 +113,10 @@ namespace CU132.Gestores
 
             int nroIdentificacionDetalle = detallePedidoEnPrepa.nroDetallePedido;
 
-            //Pasarle los datos a la Pantalla.
-            PantallaFinalizarPreparacionPedido pantalla = Application.OpenForms.Cast<PantallaFinalizarPreparacionPedido>().Last();
-            pantalla.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre,cantidad, nroIdentificacionDetalle);
             
+            PantallaFinalizarPreparacionPedido pantalla = (PantallaFinalizarPreparacionPedido)PantallaFinalizarPreparacionPedido.ActiveForm;/*Application.OpenForms.Last().Cast<PantallaFinalizarPreparacionPedido>()/*.Last()*/
+            pantalla.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre, cantidad, nroIdentificacionDetalle);
+
         }
 
 
@@ -128,19 +134,29 @@ namespace CU132.Gestores
 
         public void Notificar()
         {
+            var mapNroMesaXDetallePedidos = new Dictionary<string, string>();
+            int sumaProductos = 0;
+            
+            foreach (DetallePedido dp in detallePedidosEnPrepSeleccionados)
+            {
+                sumaProductos = +dp.cantidad;
+            }
+            
             foreach (var observador in this.observadores)
             {
-                observador.visualizar();//Meter todos los parametros.
+                observador.Visualizar(sumaProductos);//Meter todos los parametros.
             }
         }
 
-        public void Quitar(IObservadorDetallePedido[] observadores){
+        public void Quitar(List<IObservadorDetallePedido> observadores)
+        {
             foreach (var observador in observadores)
-                if(this.observadores.Contains(observador))
+                if (this.observadores.Contains(observador))
                     this.observadores.Remove(observador);
         }
 
-        public void Subscribir(IObservadorDetallePedido[] observadores){
+        public void Subscribir(List<IObservadorDetallePedido> observadores)
+        {
             foreach (var observador in observadores)
                 if (!this.observadores.Contains(observador))
                     this.observadores.Add(observador);
@@ -149,16 +165,78 @@ namespace CU132.Gestores
 
         public void ConfirmacionElaboracion(List<int> id_detalles_Seleccionados)
         {
-
-            foreach (int id in id_detalles_Seleccionados)
+            String resultado = "";
+            try
             {
-                detallePedidosEnPrepSeleccionados.Add(detallePedidosEnPreparacion.Find(dp => dp.nroDetallePedido == id));
+                foreach (int id in id_detalles_Seleccionados)
+                {
+                    detallePedidosEnPrepSeleccionados.Add(detallePedidosEnPreparacion.Find(dp => dp.nroDetallePedido == id));
+                }
+                ActualizarEstadoDetallePedido();
+
             }
-                
-                var a = 2;
-            
-            //actualizar
-            
+            catch (Exception ex)
+            {
+
+                resultado = "Error: " + ex.Message;
+            }
+            resultado = "Detalles de Pedidos Actualizados con éxito";
+
+            PantallaFinalizarPreparacionPedido pantalla = (PantallaFinalizarPreparacionPedido)PantallaFinalizarPreparacionPedido.ActiveForm;
+            pantalla.Resultado(resultado);
+
+            PublicarDetPedidoAServir();
+        }
+
+        public void PublicarDetPedidoAServir()
+        {
+            List<IObservadorDetallePedido> observadoresLista = new List<IObservadorDetallePedido>();
+            if (observadores.Count == 0)
+            {
+                InterfazMonitor Monitor = (InterfazMonitor)Application.OpenForms["InterfazMonitor"];
+                observadoresLista.Add(Monitor);
+                InterfazDispositivoMovil DispositivoMovil = (InterfazDispositivoMovil)Application.OpenForms["InterfazDispositivoMovil"];
+                observadoresLista.Add(DispositivoMovil);
+
+                Subscribir(observadoresLista);
+            }
+
+            Notificar();
+
+        }
+
+        private void ActualizarEstadoDetallePedido()
+        {
+            Estado listoParaServir = null;
+
+
+            using (var contextDB = new EntitiesDataBase())
+            {
+                List<Estado> estadosDetallePedido = new List<Estado>();
+
+                var Estados = contextDB.Estado.ToList();
+
+
+                foreach (var estado in Estados)
+                    if (estado.EsAmbitoDetallePedido())
+                        estadosDetallePedido.Add(estado);
+
+                if (estadosDetallePedido.Count != 0)
+                {
+                    foreach (var estado in estadosDetallePedido)
+                        if (estado.EsListoParaServir())
+                            listoParaServir = estado;
+                }
+                else { var error = "Error No existe Estado. Ver como tirar el error."; }
+
+            }
+
+            foreach (DetallePedido detallePedido in detallePedidosEnPrepSeleccionados)
+            {
+                DateTime horaFinalizacion = DateTime.Now;
+                detallePedido.Finalizar(horaFinalizacion, listoParaServir);
+            }
+
         }
     }
 }

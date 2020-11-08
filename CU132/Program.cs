@@ -1,4 +1,4 @@
-﻿using CU132.CapaDeDatos;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,7 @@ namespace CU132
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new PantallaFinalizarPreparacionPedido());
+            
         }
     }
 }

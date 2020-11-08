@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d71a00ab6d6942798419b4ff80603e9d" Name="Diagram1">
+        <EntityTypeShape EntityType="DataLayer.DetallePedido" Width="1.5" PointX="7.375" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.Estado" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.HistorialEstado" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.Menu" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.Mesa" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.Pedido" Width="1.5" PointX="5.625" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.Producto" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataLayer.ProductoDeCarta" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="DataLayer.FK__DetallePe__id_hi__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__DetallePe__id_me__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__DetallePe__id_pr__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__DetallePe__nroPe__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__Historial__id_es__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__Mesa__id_estado__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__Pedidos__id_hist__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__Pedidos__id_mesa__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="DataLayer.FK__ProductoD__id_pr__4D94879B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

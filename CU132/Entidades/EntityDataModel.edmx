@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetallePedidos">
+          <Key>
+            <PropertyRef Name="nroDetallePedido" />
+          </Key>
+          <Property Name="nroDetallePedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="detDetallePedido" Type="varchar" MaxLength="50" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="hora" Type="datetime" />
+          <Property Name="tiempo" Type="int" />
+          <Property Name="nroPedido" Type="int" Nullable="false" />
+          <Property Name="id_historialEstado" Type="int" Nullable="false" />
+          <Property Name="id_menu" Type="int" />
+          <Property Name="id_productoDeCarta" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ambito" Type="varchar" MaxLength="50" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HistorialEstado">
+          <Key>
+            <PropertyRef Name="id_historialEstado" />
+          </Key>
+          <Property Name="id_historialEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaHoraFin" Type="datetime" />
+          <Property Name="fechaHoraInicio" Type="datetime" />
+          <Property Name="id_estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id_menu" />
+          </Key>
+          <Property Name="id_menu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantidadMinimaComensales" Type="int" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="50" />
+          <Property Name="fechaCreacion" Type="datetime" />
+          <Property Name="fechaVigencia" Type="datetime" />
+          <Property Name="foto" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="Mesa">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacidadComensales" Type="int" />
+          <Property Name="espacioQueOcupa" Type="int" />
+          <Property Name="forma" Type="int" />
+          <Property Name="filaEnPlano" Type="int" />
+          <Property Name="ordenEnPlano" Type="int" />
+          <Property Name="id_estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="nroPedido" />
+          </Key>
+          <Property Name="nroPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantComensales" Type="int" />
+          <Property Name="detPedido" Type="varchar" MaxLength="50" />
+          <Property Name="factura" Type="int" />
+          <Property Name="fechaHoraPed" Type="datetime" />
+          <Property Name="id_mesa" Type="int" Nullable="false" />
+          <Property Name="id_historialEstado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" />
+          <Property Name="foto" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="receta" Type="int" />
+          <Property Name="sectorComanda" Type="int" />
+          <Property Name="tiempoPresen" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductoDeCarta">
+          <Key>
+            <PropertyRef Name="id_productoDeCarta" />
+          </Key>
+          <Property Name="id_productoDeCarta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="esFavorito" Type="int" Nullable="false" />
+          <Property Name="comentarios" Type="varchar" MaxLength="50" />
+          <Property Name="precio" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="id_producto" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DetallePe__id_hi__5CD6CB2B">
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="1" />
+          <End Role="DetallePedidos" Type="Self.DetallePedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistorialEstado">
+              <PropertyRef Name="id_historialEstado" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="id_historialEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__id_me__5DCAEF64">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="DetallePedidos" Type="Self.DetallePedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="id_menu" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="id_menu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__id_pr__5EBF139D">
+          <End Role="ProductoDeCarta" Type="Self.ProductoDeCarta" Multiplicity="0..1" />
+          <End Role="DetallePedidos" Type="Self.DetallePedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoDeCarta">
+              <PropertyRef Name="id_productoDeCarta" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="id_productoDeCarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__nroPe__5BE2A6F2">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="DetallePedidos" Type="Self.DetallePedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="nroPedido" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="nroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__id_es__52593CB8">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="id_estado" />
+            </Principal>
+            <Dependent Role="HistorialEstado">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mesa__id_estado__5535A963">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Mesa" Type="Self.Mesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="id_estado" />
+            </Principal>
+            <Dependent Role="Mesa">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedidos__id_hist__59063A47">
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistorialEstado">
+              <PropertyRef Name="id_historialEstado" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="id_historialEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedidos__id_mesa__5812160E">
+          <End Role="Mesa" Type="Self.Mesa" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesa">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="id_mesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductoD__id_pr__4D94879B">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoDeCarta" Type="Self.ProductoDeCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="ProductoDeCarta">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataLayerStoreContainer">
+          <EntitySet Name="DetallePedidos" EntityType="Self.DetallePedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialEstado" EntityType="Self.HistorialEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesa" EntityType="Self.Mesa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoDeCarta" EntityType="Self.ProductoDeCarta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DetallePe__id_hi__5CD6CB2B" Association="Self.FK__DetallePe__id_hi__5CD6CB2B">
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__id_me__5DCAEF64" Association="Self.FK__DetallePe__id_me__5DCAEF64">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__id_pr__5EBF139D" Association="Self.FK__DetallePe__id_pr__5EBF139D">
+            <End Role="ProductoDeCarta" EntitySet="ProductoDeCarta" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__nroPe__5BE2A6F2" Association="Self.FK__DetallePe__nroPe__5BE2A6F2">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__id_es__52593CB8" Association="Self.FK__Historial__id_es__52593CB8">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mesa__id_estado__5535A963" Association="Self.FK__Mesa__id_estado__5535A963">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Mesa" EntitySet="Mesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedidos__id_hist__59063A47" Association="Self.FK__Pedidos__id_hist__59063A47">
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedidos__id_mesa__5812160E" Association="Self.FK__Pedidos__id_mesa__5812160E">
+            <End Role="Mesa" EntitySet="Mesa" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductoD__id_pr__4D94879B" Association="Self.FK__ProductoD__id_pr__4D94879B">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoDeCarta" EntitySet="ProductoDeCarta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetallePedido">
+          <Key>
+            <PropertyRef Name="nroDetallePedido" />
+          </Key>
+          <Property Name="nroDetallePedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="detDetallePedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="hora" Type="DateTime" Precision="3" />
+          <Property Name="tiempo" Type="Int32" />
+          <Property Name="nroPedido" Type="Int32" Nullable="false" />
+          <Property Name="historialEstado" Type="Int32" Nullable="false" />
+          <Property Name="menu" Type="Int32" />
+          <Property Name="productoDeCarta" Type="Int32" />
+          <NavigationProperty Name="HistorialEstado" Relationship="Self.FK__DetallePe__id_hi__5CD6CB2B" FromRole="DetallePedidos" ToRole="HistorialEstado" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK__DetallePe__id_me__5DCAEF64" FromRole="DetallePedidos" ToRole="Menu" />
+          <NavigationProperty Name="ProductoDeCarta" Relationship="Self.FK__DetallePe__id_pr__5EBF139D" FromRole="DetallePedidos" ToRole="ProductoDeCarta" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__DetallePe__nroPe__5BE2A6F2" FromRole="DetallePedidos" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="id_estado" />
+          </Key>
+          <Property Name="id_estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ambito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HistorialEstado" Relationship="Self.FK__Historial__id_es__52593CB8" FromRole="Estado" ToRole="HistorialEstado" />
+          <NavigationProperty Name="Mesa" Relationship="Self.FK__Mesa__id_estado__5535A963" FromRole="Estado" ToRole="Mesa" />
+        </EntityType>
+        <EntityType Name="HistorialEstado">
+          <Key>
+            <PropertyRef Name="nroHistorialEstado" />
+          </Key>
+          <Property Name="nroHistorialEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaHoraFin" Type="DateTime" Precision="3" />
+          <Property Name="fechaHoraInicio" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetallePedidos" Relationship="Self.FK__DetallePe__id_hi__5CD6CB2B" FromRole="HistorialEstado" ToRole="DetallePedidos" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Historial__id_es__52593CB8" FromRole="HistorialEstado" ToRole="Estado" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__Pedidos__id_hist__59063A47" FromRole="HistorialEstado" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="id_menu" />
+          </Key>
+          <Property Name="id_menu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantidadMinimaComensales" Type="Int32" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="fechaVigencia" Type="DateTime" Precision="3" />
+          <Property Name="foto" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="DetallePedidos" Relationship="Self.FK__DetallePe__id_me__5DCAEF64" FromRole="Menu" ToRole="DetallePedidos" />
+        </EntityType>
+        <EntityType Name="Mesa">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacidadComensales" Type="Int32" />
+          <Property Name="espacioQueOcupa" Type="Int32" />
+          <Property Name="forma" Type="Int32" />
+          <Property Name="filaEnPlano" Type="Int32" />
+          <Property Name="ordenEnPlano" Type="Int32" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Mesa__id_estado__5535A963" FromRole="Mesa" ToRole="Estado" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__Pedidos__id_mesa__5812160E" FromRole="Mesa" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="nroPedido" />
+          </Key>
+          <Property Name="nroPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantComensales" Type="Int32" />
+          <Property Name="detPedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="factura" Type="Int32" />
+          <Property Name="fechaHoraPed" Type="DateTime" Precision="3" />
+          <Property Name="mesa" Type="Int32" Nullable="false" />
+          <Property Name="historialEstado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetallePedidos" Relationship="Self.FK__DetallePe__nroPe__5BE2A6F2" FromRole="Pedidos" ToRole="DetallePedidos" />
+          <NavigationProperty Name="HistorialEstado" Relationship="Self.FK__Pedidos__id_hist__59063A47" FromRole="Pedidos" ToRole="HistorialEstado" />
+          <NavigationProperty Name="Mesa" Relationship="Self.FK__Pedidos__id_mesa__5812160E" FromRole="Pedidos" ToRole="Mesa" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id_producto" />
+          </Key>
+          <Property Name="id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="foto" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="receta" Type="Int32" />
+          <Property Name="sectorComanda" Type="Int32" />
+          <Property Name="tiempoPresen" Type="Int32" />
+          <NavigationProperty Name="ProductoDeCarta" Relationship="Self.FK__ProductoD__id_pr__4D94879B" FromRole="Producto" ToRole="ProductoDeCarta" />
+        </EntityType>
+        <EntityType Name="ProductoDeCarta">
+          <Key>
+            <PropertyRef Name="id_productoDeCarta" />
+          </Key>
+          <Property Name="id_productoDeCarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="esFavorito" Type="Int32" Nullable="false" />
+          <Property Name="comentarios" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="id_producto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetallePedidos" Relationship="Self.FK__DetallePe__id_pr__5EBF139D" FromRole="ProductoDeCarta" ToRole="DetallePedidos" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__ProductoD__id_pr__4D94879B" FromRole="ProductoDeCarta" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK__DetallePe__id_hi__5CD6CB2B">
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="1" />
+          <End Role="DetallePedidos" Type="DataLayer.DetallePedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistorialEstado">
+              <PropertyRef Name="nroHistorialEstado" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="historialEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__id_me__5DCAEF64">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="0..1" />
+          <End Role="DetallePedidos" Type="DataLayer.DetallePedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="id_menu" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="menu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__id_pr__5EBF139D">
+          <End Role="ProductoDeCarta" Type="Self.ProductoDeCarta" Multiplicity="0..1" />
+          <End Role="DetallePedidos" Type="DataLayer.DetallePedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoDeCarta">
+              <PropertyRef Name="id_productoDeCarta" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="productoDeCarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePe__nroPe__5BE2A6F2">
+          <End Role="Pedidos" Type="DataLayer.Pedido" Multiplicity="1" />
+          <End Role="DetallePedidos" Type="DataLayer.DetallePedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="nroPedido" />
+            </Principal>
+            <Dependent Role="DetallePedidos">
+              <PropertyRef Name="nroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__id_es__52593CB8">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="id_estado" />
+            </Principal>
+            <Dependent Role="HistorialEstado">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mesa__id_estado__5535A963">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Mesa" Type="Self.Mesa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="id_estado" />
+            </Principal>
+            <Dependent Role="Mesa">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedidos__id_hist__59063A47">
+          <End Role="HistorialEstado" Type="Self.HistorialEstado" Multiplicity="1" />
+          <End Role="Pedidos" Type="DataLayer.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HistorialEstado">
+              <PropertyRef Name="nroHistorialEstado" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="historialEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedidos__id_mesa__5812160E">
+          <End Role="Mesa" Type="Self.Mesa" Multiplicity="1" />
+          <End Role="Pedidos" Type="DataLayer.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesa">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="mesa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductoD__id_pr__4D94879B">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoDeCarta" Type="Self.ProductoDeCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id_producto" />
+            </Principal>
+            <Dependent Role="ProductoDeCarta">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntitiesDataBase" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetallePedidos" EntityType="DataLayer.DetallePedido" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="HistorialEstado" EntityType="Self.HistorialEstado" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Mesa" EntityType="Self.Mesa" />
+          <EntitySet Name="Pedidos" EntityType="DataLayer.Pedido" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="ProductoDeCarta" EntityType="Self.ProductoDeCarta" />
+          <AssociationSet Name="FK__DetallePe__id_hi__5CD6CB2B" Association="Self.FK__DetallePe__id_hi__5CD6CB2B">
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__id_me__5DCAEF64" Association="Self.FK__DetallePe__id_me__5DCAEF64">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__id_pr__5EBF139D" Association="Self.FK__DetallePe__id_pr__5EBF139D">
+            <End Role="ProductoDeCarta" EntitySet="ProductoDeCarta" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePe__nroPe__5BE2A6F2" Association="Self.FK__DetallePe__nroPe__5BE2A6F2">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="DetallePedidos" EntitySet="DetallePedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__id_es__52593CB8" Association="Self.FK__Historial__id_es__52593CB8">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mesa__id_estado__5535A963" Association="Self.FK__Mesa__id_estado__5535A963">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Mesa" EntitySet="Mesa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedidos__id_hist__59063A47" Association="Self.FK__Pedidos__id_hist__59063A47">
+            <End Role="HistorialEstado" EntitySet="HistorialEstado" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedidos__id_mesa__5812160E" Association="Self.FK__Pedidos__id_mesa__5812160E">
+            <End Role="Mesa" EntitySet="Mesa" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductoD__id_pr__4D94879B" Association="Self.FK__ProductoD__id_pr__4D94879B">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoDeCarta" EntitySet="ProductoDeCarta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataLayerStoreContainer" CdmEntityContainer="EntitiesDataBase">
+          <EntitySetMapping Name="DetallePedidos">
+            <EntityTypeMapping TypeName="DataLayer.DetallePedido">
+              <MappingFragment StoreEntitySet="DetallePedidos">
+                <ScalarProperty Name="nroDetallePedido" ColumnName="nroDetallePedido" />
+                <ScalarProperty Name="detDetallePedido" ColumnName="detDetallePedido" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="tiempo" ColumnName="tiempo" />
+                <ScalarProperty Name="nroPedido" ColumnName="nroPedido" />
+                <ScalarProperty Name="historialEstado" ColumnName="id_historialEstado" />
+                <ScalarProperty Name="menu" ColumnName="id_menu" />
+                <ScalarProperty Name="productoDeCarta" ColumnName="id_productoDeCarta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="DataLayer.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="ambito" ColumnName="ambito" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialEstado">
+            <EntityTypeMapping TypeName="DataLayer.HistorialEstado">
+              <MappingFragment StoreEntitySet="HistorialEstado">
+                <ScalarProperty Name="nroHistorialEstado" ColumnName="id_historialEstado" />
+                <ScalarProperty Name="fechaHoraFin" ColumnName="fechaHoraFin" />
+                <ScalarProperty Name="fechaHoraInicio" ColumnName="fechaHoraInicio" />
+                <ScalarProperty Name="estado" ColumnName="id_estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="DataLayer.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="id_menu" ColumnName="id_menu" />
+                <ScalarProperty Name="cantidadMinimaComensales" ColumnName="cantidadMinimaComensales" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="fechaVigencia" ColumnName="fechaVigencia" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesa">
+            <EntityTypeMapping TypeName="DataLayer.Mesa">
+              <MappingFragment StoreEntitySet="Mesa">
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="capacidadComensales" ColumnName="capacidadComensales" />
+                <ScalarProperty Name="espacioQueOcupa" ColumnName="espacioQueOcupa" />
+                <ScalarProperty Name="forma" ColumnName="forma" />
+                <ScalarProperty Name="filaEnPlano" ColumnName="filaEnPlano" />
+                <ScalarProperty Name="ordenEnPlano" ColumnName="ordenEnPlano" />
+                <ScalarProperty Name="estado" ColumnName="id_estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="DataLayer.Pedido">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="nroPedido" ColumnName="nroPedido" />
+                <ScalarProperty Name="cantComensales" ColumnName="cantComensales" />
+                <ScalarProperty Name="detPedido" ColumnName="detPedido" />
+                <ScalarProperty Name="factura" ColumnName="factura" />
+                <ScalarProperty Name="fechaHoraPed" ColumnName="fechaHoraPed" />
+                <ScalarProperty Name="mesa" ColumnName="id_mesa" />
+                <ScalarProperty Name="historialEstado" ColumnName="id_historialEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="DataLayer.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="receta" ColumnName="receta" />
+                <ScalarProperty Name="sectorComanda" ColumnName="sectorComanda" />
+                <ScalarProperty Name="tiempoPresen" ColumnName="tiempoPresen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoDeCarta">
+            <EntityTypeMapping TypeName="DataLayer.ProductoDeCarta">
+              <MappingFragment StoreEntitySet="ProductoDeCarta">
+                <ScalarProperty Name="id_productoDeCarta" ColumnName="id_productoDeCarta" />
+                <ScalarProperty Name="esFavorito" ColumnName="esFavorito" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

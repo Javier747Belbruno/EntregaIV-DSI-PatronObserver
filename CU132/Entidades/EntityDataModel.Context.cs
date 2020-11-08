@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CU132.CapaDeDatos
+namespace CU132.Entidades
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RestaurantEntities : DbContext
+    public partial class EntitiesDataBase : DbContext
     {
-        public RestaurantEntities()
-            : base("name=RestaurantEntities")
+        public EntitiesDataBase()
+            : base("name=EntitiesDataBase")
         {
         }
     
@@ -25,12 +25,12 @@ namespace CU132.CapaDeDatos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DetallePedidos> DetallePedidos { get; set; }
+        public virtual DbSet<DetallePedido> DetallePedidos { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }
         public virtual DbSet<HistorialEstado> HistorialEstado { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Mesa> Mesa { get; set; }
-        public virtual DbSet<Pedidos> Pedidos { get; set; }
+        public virtual DbSet<Pedido> Pedidos { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<ProductoDeCarta> ProductoDeCarta { get; set; }
     }

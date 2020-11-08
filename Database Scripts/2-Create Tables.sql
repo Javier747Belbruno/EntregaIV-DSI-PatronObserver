@@ -1,30 +1,16 @@
 
 USE Restaurant;  
 GO  
-CREATE TABLE Pedidos (
-    nroPedido INT PRIMARY KEY IDENTITY (1, 1),
-    cantComensales INT,
-    detPedido VARCHAR (50),
-    factura INT,
-    fechaHoraPed DATETIME,
+CREATE TABLE Producto (
+    id_producto INT PRIMARY KEY IDENTITY (1, 1),
+    fechaCreacion DATETIME,
+	foto INT,
+	nombre VARCHAR (50),
+	precio DECIMAL(8,2),
+	receta INT,
+	sectorComanda INT,
+	tiempoPresen INT
 	
-	id_mesa INT,
-);
-
---DROP TABLE Pedidos
-
-CREATE TABLE DetallePedidos (
-    nroDetallePedido INT PRIMARY KEY IDENTITY (1, 1),
-    nroPedido INT NOT NULL,
-	detDetallePedido VARCHAR (50),
-	cantidad INT NOT NULL,
-    hora DATETIME,
-	menu INT,
-	productoDeCarta INT,
-	tiempo INT,
-	
-    --Por ahora no pongo foreing key para no cagarla.
-    --FOREIGN KEY (nroPedido) REFERENCES Pedidos (nroPedido)
 );
 
 
@@ -45,44 +31,28 @@ CREATE TABLE ProductoDeCarta (
     esFavorito INT NOT NULL,
 	comentarios VARCHAR (50),
 	precio DECIMAL(8,2),
+
 	id_producto INT NOT NULL,
-	
+	FOREIGN KEY (id_producto) REFERENCES Producto (id_producto) 
 );
-
-CREATE TABLE Producto (
-    id_producto INT PRIMARY KEY IDENTITY (1, 1),
-    fechaCreacion DATETIME,
-	foto INT,
-	nombre VARCHAR (50),
-	precio DECIMAL(8,2),
-	receta INT,
-	sectorComanda INT,
-	tiempoPresen INT
-	
-);
-
-
-
-CREATE TABLE HistorialEstado (
-    id_historialEstado INT PRIMARY KEY IDENTITY (1, 1),
-    id_estado INT,
-    fechaHoraFin DATETIME,
-	fechaHoraInicio DATETIME,
-	id_detallePedido INT, --Si es de detalle pedido , id_pedido tendria que ser nulo.
-	id_pedido INT --Si es de pedido , id_detallePedido no deberia tener un valor.
-);
-
---DROP TABLE DetallePedidos;
-
---DROP TABLE Mesa;
-
---DROP TABLE HistorialEstado;
 
 CREATE TABLE Estado (
     id_estado INT PRIMARY KEY IDENTITY (1, 1),
     ambito VARCHAR (50),
 	nombre VARCHAR (50),
 );
+
+CREATE TABLE HistorialEstado (
+    id_historialEstado INT PRIMARY KEY IDENTITY (1, 1),
+	
+    fechaHoraFin DATETIME,
+	fechaHoraInicio DATETIME,
+
+	 id_estado INT NOT NULL,
+	 FOREIGN KEY (id_estado) REFERENCES Estado (id_estado) 
+);
+
+
 
 CREATE TABLE Mesa (
     numero INT PRIMARY KEY IDENTITY (1, 1),
@@ -91,5 +61,50 @@ CREATE TABLE Mesa (
 	forma INT,
 	filaEnPlano INT,
 	ordenEnPlano INT,
-    id_estado INT
+
+    id_estado INT NOT NULL -- Not null es una Mesa tiene uno y un solo estado.
+	FOREIGN KEY (id_estado) REFERENCES Estado (id_estado) 
 );
+
+CREATE TABLE Pedidos (
+    nroPedido INT PRIMARY KEY IDENTITY (1, 1),
+    cantComensales INT,
+    detPedido VARCHAR (50),
+    factura INT,
+    fechaHoraPed DATETIME,
+	
+	id_mesa INT NOT NULL,
+	FOREIGN KEY (id_mesa) REFERENCES Mesa (numero),
+	id_historialEstado INT NOT NULL,
+	FOREIGN KEY (id_historialEstado) REFERENCES HistorialEstado (id_historialEstado) 
+);
+
+
+CREATE TABLE DetallePedidos (
+    nroDetallePedido INT PRIMARY KEY IDENTITY (1, 1),
+   
+	detDetallePedido VARCHAR (50),
+	cantidad INT NOT NULL,
+    hora DATETIME,
+	tiempo INT,
+
+	nroPedido INT NOT NULL,
+    FOREIGN KEY (nroPedido) REFERENCES Pedidos (nroPedido),
+	id_historialEstado INT NOT NULL,
+	FOREIGN KEY (id_historialEstado) REFERENCES HistorialEstado (id_historialEstado), 
+
+	id_menu INT,
+	FOREIGN KEY (id_menu) REFERENCES Menu (id_menu) ,
+	id_productoDeCarta INT,
+	FOREIGN KEY (id_productoDeCarta) REFERENCES ProductoDeCarta (id_productoDeCarta) ,
+);
+/*
+DROP TABLE DetallePedidos
+DROP table Menu
+drop table mesa
+drop table Pedidos
+drop table ProductoDeCarta
+drop table Producto
+drop table Estado
+drop table HistorialEstado
+*/

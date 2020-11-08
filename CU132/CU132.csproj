@@ -14,6 +14,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +48,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -56,53 +75,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapaDeDatos\DetallePedidos.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Entidades\DetallePedido.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\Estado.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CapaDeDatos\HistorialEstado.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CapaDeDatos\Menu.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CapaDeDatos\Mesa.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CapaDeDatos\Model1.Context.cs">
+    <Compile Include="Entidades\EntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>EntityDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\Model1.cs">
+    <Compile Include="Entidades\EntityDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\Model1.Designer.cs">
+    <Compile Include="Entidades\EntityDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\Pedidos.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Entidades\Estado.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\Producto.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Entidades\HistorialEstado.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CapaDeDatos\ProductoDeCarta.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Entidades\Menu.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entidades\DetalleDePedido.cs" />
-    <Compile Include="Entidades\Estado.cs" />
-    <Compile Include="Entidades\HistorialEstado.cs" />
-    <Compile Include="Entidades\Menu.cs" />
-    <Compile Include="Entidades\Mesa.cs" />
-    <Compile Include="Entidades\Pedido.cs" />
-    <Compile Include="Entidades\Producto.cs" />
-    <Compile Include="Entidades\ProductoDeCarta.cs" />
+    <Compile Include="Entidades\Mesa.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entidades\Pedido.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entidades\Producto.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entidades\ProductoDeCarta.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gestores\GestorFinalizarPreparacionPedido.cs" />
     <Compile Include="InterfacesDeUsuario\InterfazDispositivoMovil.cs">
       <SubType>Form</SubType>
@@ -143,12 +154,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="App.config" />
-    <EntityDeploy Include="CapaDeDatos\Model1.edmx">
+    <EntityDeploy Include="Entidades\EntityDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>EntityDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CapaDeDatos\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <None Include="Entidades\EntityDataModel.edmx.diagram">
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -162,19 +173,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CapaDeDatos\Model1.Context.tt">
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Entidades\EntityDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>EntityDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CapaDeDatos\Model1.tt">
+    <Content Include="Entidades\EntityDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>EntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>EntityDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

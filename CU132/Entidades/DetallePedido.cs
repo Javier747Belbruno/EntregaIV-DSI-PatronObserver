@@ -50,7 +50,7 @@ namespace CU132.Entidades
 
         DetallePedido detallePedidoParametro = objAComparar as DetallePedido;
         if (detallePedidoParametro != null)
-            return detallePedidoParametro.HistorialEstado.fechaHoraInicio.Value.CompareTo(this.HistorialEstado.fechaHoraInicio.Value);
+            return this.HistorialEstado.fechaHoraInicio.Value.CompareTo(detallePedidoParametro.HistorialEstado.fechaHoraInicio.Value);
         else
            throw new ArgumentException("El objeto no es un DetallePedido");
         }

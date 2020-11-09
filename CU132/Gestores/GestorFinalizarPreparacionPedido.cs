@@ -8,6 +8,7 @@ using CU132.Interfaces;
 using System.CodeDom;
 using CU132.InterfacesDeUsuario;
 using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace CU132.Gestores
 {
@@ -15,14 +16,18 @@ namespace CU132.Gestores
     {
 
         private List<DetallePedido> detallePedidosEnPreparacion = new List<DetallePedido>();
-
         private List<DetallePedido> detallePedidosEnPrepSeleccionados = new List<DetallePedido>();
+
+
+        private PantallaFinalizarPreparacionPedido pantallaFinalizarPreparacion = (PantallaFinalizarPreparacionPedido)Application.OpenForms["PantallaFinalizarPreparacionPedido"];
+        private InterfazMonitor interfazMonitor = (InterfazMonitor) Application.OpenForms["InterfazMonitor"];
+        private InterfazDispositivoMovil DispositivoMovil = (InterfazDispositivoMovil)Application.OpenForms["InterfazDispositivoMovil"];
 
         private List<IObservadorDetallePedido> observadores = new List<IObservadorDetallePedido>();
 
 
-        //Gestor Como Singleton.
-        private GestorFinalizarPreparacionPedido() { }
+        
+        private GestorFinalizarPreparacionPedido() { }   //Gestor Como Singleton.
         private static GestorFinalizarPreparacionPedido _instance;
         public static GestorFinalizarPreparacionPedido GetInstance()
         {
@@ -114,8 +119,7 @@ namespace CU132.Gestores
             int nroIdentificacionDetalle = detallePedidoEnPrepa.nroDetallePedido;
 
             
-            PantallaFinalizarPreparacionPedido pantalla = (PantallaFinalizarPreparacionPedido)PantallaFinalizarPreparacionPedido.ActiveForm;/*Application.OpenForms.Last().Cast<PantallaFinalizarPreparacionPedido>()/*.Last()*/
-            pantalla.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre, cantidad, nroIdentificacionDetalle);
+            pantallaFinalizarPreparacion.mostrarDatosDetallePedidoEnPreparacion(hora, numeroMesa, nombre, cantidad, nroIdentificacionDetalle);
 
         }
 
@@ -134,18 +138,38 @@ namespace CU132.Gestores
 
         public void Notificar()
         {
-            var mapNroMesaXDetallePedidos = new Dictionary<string, string>();
-            int sumaProductos = 0;
-            
+            //Mesa - Cantidad por Mesa
+            Dictionary<int, int> mapMesaCantidadProd = new Dictionary<int, int>();
+            int sumaTotalProductos = 0;
+
             foreach (DetallePedido dp in detallePedidosEnPrepSeleccionados)
             {
-                sumaProductos = +dp.cantidad;
+                int nromesa = buscarMesaDelDetalleEnPreparacion(dp);
+                int cantidadProductos = dp.cantidad;
+
+                if (mapMesaCantidadProd.ContainsKey(nromesa)){
+                    mapMesaCantidadProd[nromesa] = mapMesaCantidadProd[nromesa] + cantidadProductos;
+                }
+                else
+                {
+                    mapMesaCantidadProd.Add(nromesa, cantidadProductos);
+                }
+                sumaTotalProductos = sumaTotalProductos + cantidadProductos;
             }
             
             foreach (var observador in this.observadores)
             {
-                observador.Visualizar(sumaProductos);//Meter todos los parametros.
+                observador.Visualizar(mapMesaCantidadProd, sumaTotalProductos);//Meter todos los parametros.
             }
+
+            ActualizarEstadoDetallePedidoNotificar();
+        }
+
+        
+
+        public void FinCasoDeUso()
+        {
+            //
         }
 
         public void Quitar(List<IObservadorDetallePedido> observadores)
@@ -182,8 +206,7 @@ namespace CU132.Gestores
             }
             resultado = "Detalles de Pedidos Actualizados con éxito";
 
-            PantallaFinalizarPreparacionPedido pantalla = (PantallaFinalizarPreparacionPedido)PantallaFinalizarPreparacionPedido.ActiveForm;
-            pantalla.Resultado(resultado);
+            pantallaFinalizarPreparacion.Resultado(resultado);
 
             PublicarDetPedidoAServir();
         }
@@ -193,17 +216,19 @@ namespace CU132.Gestores
             List<IObservadorDetallePedido> observadoresLista = new List<IObservadorDetallePedido>();
             if (observadores.Count == 0)
             {
-                InterfazMonitor Monitor = (InterfazMonitor)Application.OpenForms["InterfazMonitor"];
-                observadoresLista.Add(Monitor);
-                InterfazDispositivoMovil DispositivoMovil = (InterfazDispositivoMovil)Application.OpenForms["InterfazDispositivoMovil"];
+                observadoresLista.Add(interfazMonitor);
                 observadoresLista.Add(DispositivoMovil);
-
                 Subscribir(observadoresLista);
             }
 
             Notificar();
 
         }
+
+
+        //-----------------------------------------------------------------------------------------------------------------------
+
+
 
         private void ActualizarEstadoDetallePedido()
         {
@@ -238,5 +263,76 @@ namespace CU132.Gestores
             }
 
         }
+
+
+
+
+
+
+
+        public void ActualizarEstadoDetallePedidoNotificar()
+        {
+            Estado ListoParaServir = null;
+            Estado Notificado = null;
+            List<DetallePedido> detallePedidosListosParaServir = new List<DetallePedido>();
+
+            using (var contextDB = new EntitiesDataBase())
+            {
+                List<Estado> estadosDetallePedido = new List<Estado>();
+
+                var Estados = contextDB.Estado.ToList();
+
+
+                foreach (var estado in Estados)
+                    if (estado.EsAmbitoDetallePedido())
+                        estadosDetallePedido.Add(estado);
+
+                if (estadosDetallePedido.Count != 0)
+                {
+                    foreach (var estado in estadosDetallePedido) {
+                        if (estado.EsListoParaServir())
+                            ListoParaServir = estado;
+                        if (estado.EsNotificado()) 
+                            Notificado = estado;
+                        
+                    }
+                }
+                else { var error = "Error No existe Estado. Ver como tirar el error."; }
+
+                if (Notificado != null)
+                {
+
+                    var detallePedidos = contextDB.DetallePedidos.ToList();
+                    foreach (var detallePedido in detallePedidos)
+                        if (detallePedido.EstaListoParaServir(ListoParaServir))
+                            foreach (DetallePedido dt in detallePedidosEnPrepSeleccionados)
+                            {
+                                if (dt.nroDetallePedido == detallePedido.nroDetallePedido)
+                                    detallePedidosListosParaServir.Add(detallePedido);
+                            }
+
+
+                }
+
+            }
+
+            foreach (DetallePedido detallePedido in detallePedidosListosParaServir)
+            {
+                DateTime horaFinalizacion = DateTime.Now;
+                detallePedido.Finalizar(horaFinalizacion, Notificado);
+            }
+
+            FinCasoDeUso();
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }

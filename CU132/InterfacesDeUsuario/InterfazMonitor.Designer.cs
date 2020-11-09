@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InterfazMonitor));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.numMesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantProductos = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +70,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1309, 252);
             this.Controls.Add(this.dataGridView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InterfazMonitor";
             this.Text = "InterfazMonitor";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -35,7 +35,15 @@ namespace CU132.Entidades
 
         public bool EstaEnPreparacion(Estado enPreparacion) {
             var historialEstadoUltimo = obtenerUltimoEstado();
-            if (historialEstadoUltimo.Estado.Equals(enPreparacion))
+            if (historialEstadoUltimo.Estado.Equals(enPreparacion) && historialEstadoUltimo.fechaHoraFin == null)
+                return true;
+            return false;
+        }
+
+        public bool EstaListoParaServir(Estado listoParaServir)
+        {
+            var historialEstadoUltimo = obtenerUltimoEstado();
+            if (historialEstadoUltimo.Estado.Equals(listoParaServir) && historialEstadoUltimo.fechaHoraFin == null)
                 return true;
             return false;
         }
@@ -56,18 +64,18 @@ namespace CU132.Entidades
            throw new ArgumentException("El objeto no es un DetallePedido");
         }
 
-        public void Finalizar(DateTime horaFinalizacion, Estado listoParaServir)
+        public void Finalizar(DateTime horaFinalizacion, Estado estado)
         {
-            setearFinUltimoHistoria(horaFinalizacion, listoParaServir);
+            setearFinUltimoHistoria(horaFinalizacion, estado);
         }
 
-        public void setearFinUltimoHistoria(DateTime hora, Estado listoParaServir)
+        public void setearFinUltimoHistoria(DateTime hora, Estado estado)
         {
             HistorialEstado.setFechaHoraFin(hora);
-            CrearHistoria(listoParaServir,hora);
+            CrearHistoria(estado,hora);
         }
 
-        private void CrearHistoria(Estado listoParaServir, DateTime hora)
+        private void CrearHistoria(Estado estado, DateTime hora)
         {
            
             using (var contextDB = new EntitiesDataBase())
@@ -75,7 +83,7 @@ namespace CU132.Entidades
                 HistorialEstado nuevaHistoriaEstado 
                     = new HistorialEstado { fechaHoraFin = null,
                                             fechaHoraInicio = hora,
-                                            estado=listoParaServir.id_estado };
+                                            estado= estado.id_estado };
                 contextDB.HistorialEstado.Add(nuevaHistoriaEstado);
                 contextDB.SaveChanges();
 

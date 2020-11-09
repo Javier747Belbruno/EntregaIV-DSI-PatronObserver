@@ -13,10 +13,7 @@ namespace CU132
         public PantallaFinalizarPreparacionPedido()
         {
             InitializeComponent();
-            dataGridView1.Visible = false;
-            btnSeleccionarDetallesPedidos.Visible = false;
-            dataGridView1.Columns[5].Visible = false;
-            lblResultado.Visible = false;
+            AcomodarPantallaYSusElementos();
 
             //Inicio de los observadores.
             InterfazMonitor interfazMonitor = new InterfazMonitor();
@@ -25,13 +22,24 @@ namespace CU132
             InterfazDispositivoMovil interfazDispositivoMovil = new InterfazDispositivoMovil();
             interfazDispositivoMovil.Show();
 
+        }
+
+        private void AcomodarPantallaYSusElementos()
+        {
             //Posicion
             this.StartPosition = 0;
-
             this.Left = 0;
             this.Top = 40;
 
-            
+            dataGridView1.Visible = false;
+            btnSeleccionarDetallesPedidos.Visible = false;
+            dataGridView1.Columns[5].Visible = false;
+            lblResultado.Visible = false;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
         
 
@@ -61,11 +69,7 @@ namespace CU132
         public void mostrarDatosDetallePedidoEnPreparacion(DateTime hora, int numeroMesa, string nombre, int cantidad, int id_detallePedidoEnPrepa)
         {
             dataGridView1.Rows.Add(hora, numeroMesa, nombre, cantidad,false, id_detallePedidoEnPrepa);
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
 
         }
 

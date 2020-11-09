@@ -214,7 +214,10 @@ select * from Producto
 select * from Estado where nombre = 'En preparacion'
 
 */
+delete from Estado where id_estado in (15,16)
 
+select * from HistorialEstado 
+update HistorialEstado set id_estado = 7 where id_estado in (8)
 /*update HistorialEstado set id_estado = 7 where id_historialEstado in (5,6)*/
 /*
 update DetallePedidos set id_historialEstado = 6 where nroDetallePedido = 1

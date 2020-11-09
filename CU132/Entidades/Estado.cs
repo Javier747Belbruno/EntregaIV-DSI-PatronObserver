@@ -49,6 +49,13 @@ namespace CU132.Entidades
             return false;
         }
 
+        public bool EsNotificado()
+        {
+            if (nombre == "Notificado")
+                return true;
+            return false;
+        }
+
         // override object.Equals
         public override bool Equals(object obj)
         {
@@ -59,5 +66,6 @@ namespace CU132.Entidades
             return ambito.Equals(e.ambito) && nombre.Equals(e.nombre);
         }
 
+    
     }
 }

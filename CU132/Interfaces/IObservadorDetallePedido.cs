@@ -7,6 +7,6 @@ namespace CU132.Interfaces
 {
     interface IObservadorDetallePedido
     {
-        void Visualizar(int sumaProductos);
+        void Visualizar(Dictionary<int, int> mapMesaCantidadProd, int sumaProductos);
     }
 }

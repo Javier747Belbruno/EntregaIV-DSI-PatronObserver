@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PantallaFinalizarPreparacionPedido));
             this.btn_FinalizarPrepPedido = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -145,6 +146,7 @@
             this.Controls.Add(this.btnSeleccionarDetallesPedidos);
             this.Controls.Add(this.btn_FinalizarPrepPedido);
             this.Controls.Add(this.dataGridView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PantallaFinalizarPreparacionPedido";
             this.Text = "Pantalla Finalizar Preparación Pedido";

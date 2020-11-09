@@ -18,15 +18,17 @@ namespace CU132.InterfacesDeUsuario
             this.StartPosition = 0;
             this.Left = 0;
             this.Top = 490;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.AllowUserToAddRows = false;
 
         }
 
 
-        public void Visualizar(int sumaProductos)
+        public void Visualizar(Dictionary<int, int> mapMesaCantidadProd, int sumaTotalProductos)
         {
-            dataGridView1.Rows.Add("Todas las Mesas", sumaProductos);
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            foreach (KeyValuePair<int, int> kvp in mapMesaCantidadProd)
+                dataGridView1.Rows.Add(kvp.Key, kvp.Value);
         }
     }
 }

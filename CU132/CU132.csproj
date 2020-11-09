@@ -53,6 +53,10 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net40\EntityFramework.dll</HintPath>
@@ -147,7 +151,7 @@
       <DependentUpon>PantallaFinalizarPreparacionPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -189,6 +193,11 @@
       <DependentUpon>EntityDataModel.edmx</DependentUpon>
       <LastGenOutput>EntityDataModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\bell_sound.wav" />
+    <None Include="Resources\Graphicloads-Colorful-Long-Shadow-Restaurant.ico" />
+    <None Include="Resources\sound.bmp" />
+    <None Include="Resources\Green Bell v2-not Sounding.png" />
+    <None Include="Resources\Green Bell v2- Sounding.png" />
     <None Include="Resources\YouTube-Bell-Icon-PNG-Photos.png" />
     <None Include="Resources\blackbell2.png" />
   </ItemGroup>

@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Media;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CU132.InterfacesDeUsuario
@@ -18,17 +21,31 @@ namespace CU132.InterfacesDeUsuario
             this.StartPosition = 0;
             this.Left = 935;
             this.Top = 40;
-        }
-
-        public void Visualizar(int sumaProductos)
-        {
-            lblNumeroPlatos.Text = sumaProductos.ToString();
-            pictureBoxBell.Image = Resources.YouTube_Bell_Icon_PNG_Photos;
-            dataGridView1.Rows.Add("Todas las Mesas", sumaProductos);
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            pictureBoxBell.Image = Resources.blackbell2;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
+        public void Visualizar(Dictionary<int, int> mapMesaCantidadProd, int sumaTotalProductos)
+        {
+            foreach (KeyValuePair<int, int> kvp in mapMesaCantidadProd)
+                dataGridView1.Rows.Add(kvp.Key, kvp.Value);
+
+            lblNumeroPlatos.Text = sumaTotalProductos.ToString();
+
+            playBell();
+        }
+
+
+        private void playBell()
+        {
+            pictureBoxBell.Image = Resources.Green_Bell_v2__Sounding;
+            SoundPlayer simpleSound = new SoundPlayer(Resources.bell_sound);
+            simpleSound.Play();
+        }
+
+        
         private void label1_Click(object sender, EventArgs e)
         {
 

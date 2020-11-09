@@ -9,9 +9,9 @@ namespace CU132.Interfaces
     {
         void Notificar();
 
-        void Quitar(List<IObservadorDetallePedido> observador);
+        void Quitar(List<IObservadorDetallePedido> observadores);
 
-        void Subscribir(List<IObservadorDetallePedido> observador);
+        void Subscribir(List<IObservadorDetallePedido> observadores);
 
     }
 }

@@ -1,10 +1,5 @@
 ﻿using CU132.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace CU132.InterfacesDeUsuario
@@ -14,14 +9,17 @@ namespace CU132.InterfacesDeUsuario
         public InterfazMonitor()
         {
             InitializeComponent();
-            //Posiciones
+            AcomodarPantalla();
+        }
+
+        public void AcomodarPantalla()
+        {
             this.StartPosition = 0;
             this.Left = 0;
             this.Top = 490;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.AllowUserToAddRows = false;
-
         }
 
 

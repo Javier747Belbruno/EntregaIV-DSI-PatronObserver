@@ -18,6 +18,11 @@ namespace CU132.InterfacesDeUsuario
         public InterfazDispositivoMovil()
         {
             InitializeComponent();
+            AcomodarPantalla();
+        }
+
+        public void AcomodarPantalla()
+        {
             this.StartPosition = 0;
             this.Left = 935;
             this.Top = 40;
@@ -38,7 +43,7 @@ namespace CU132.InterfacesDeUsuario
         }
 
 
-        private void playBell()
+        public void playBell()
         {
             pictureBoxBell.Image = Resources.Green_Bell_v2__Sounding;
             SoundPlayer simpleSound = new SoundPlayer(Resources.bell_sound);
@@ -46,9 +51,5 @@ namespace CU132.InterfacesDeUsuario
         }
 
         
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

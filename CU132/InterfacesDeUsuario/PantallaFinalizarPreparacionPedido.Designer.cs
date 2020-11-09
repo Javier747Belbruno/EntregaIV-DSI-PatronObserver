@@ -39,6 +39,7 @@
             this.id_detalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSeleccionarDetallesPedidos = new System.Windows.Forms.Button();
             this.lblResultado = new System.Windows.Forms.Label();
+            this.lblCargando = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Hora,
@@ -137,11 +139,23 @@
             this.lblResultado.Size = new System.Drawing.Size(0, 58);
             this.lblResultado.TabIndex = 3;
             // 
+            // lblCargando
+            // 
+            this.lblCargando.AutoSize = true;
+            this.lblCargando.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblCargando.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.lblCargando.Location = new System.Drawing.Point(402, 239);
+            this.lblCargando.Name = "lblCargando";
+            this.lblCargando.Size = new System.Drawing.Size(445, 36);
+            this.lblCargando.TabIndex = 4;
+            this.lblCargando.Text = "Buscando Detalles de Pedidos...";
+            // 
             // PantallaFinalizarPreparacionPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1285, 626);
+            this.Controls.Add(this.lblCargando);
             this.Controls.Add(this.lblResultado);
             this.Controls.Add(this.btnSeleccionarDetallesPedidos);
             this.Controls.Add(this.btn_FinalizarPrepPedido);
@@ -168,6 +182,7 @@
         private System.Windows.Forms.Button btnSeleccionarDetallesPedidos;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_detalle;
         private System.Windows.Forms.Label lblResultado;
+        private System.Windows.Forms.Label lblCargando;
     }
 }
 

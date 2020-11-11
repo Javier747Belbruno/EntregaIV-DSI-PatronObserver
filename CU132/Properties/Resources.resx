@@ -121,19 +121,34 @@
   <data name="YouTube-Bell-Icon-PNG-Photos" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\YouTube-Bell-Icon-PNG-Photos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Restaurant" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Restaurant.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="we" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\we.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="blackbell2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blackbell2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Green Bell v2- Sounding" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Green Bell v2- Sounding.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Green Bell v2-not Sounding" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Green Bell v2-not Sounding.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="edit-profile-icon-22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit-profile-icon-22.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bell_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bell_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Green Bell v2-not Sounding" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Green Bell v2-not Sounding.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WhatsApp-icon-PNG" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WhatsApp-icon-PNG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Graphicloads_Colorful_Long_Shadow_Restaurant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Graphicloads-Colorful-Long-Shadow-Restaurant.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hamburger_icon.svg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hamburger_icon.svg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

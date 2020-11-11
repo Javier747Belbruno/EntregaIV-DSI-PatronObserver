@@ -32,7 +32,9 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.numMesa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cantProductos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -41,11 +43,11 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numMesa,
             this.cantProductos});
-            this.dataGridView1.Location = new System.Drawing.Point(119, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(46, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(925, 217);
+            this.dataGridView1.Size = new System.Drawing.Size(973, 217);
             this.dataGridView1.TabIndex = 0;
             // 
             // numMesa
@@ -64,16 +66,28 @@
             this.cantProductos.ReadOnly = true;
             this.cantProductos.Width = 150;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CU132.Properties.Resources.Restaurant;
+            this.pictureBox1.Location = new System.Drawing.Point(1025, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(218, 217);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // InterfazMonitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1309, 252);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InterfazMonitor";
             this.Text = "InterfazMonitor";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -83,5 +97,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn numMesa;
         private System.Windows.Forms.DataGridViewTextBoxColumn cantProductos;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

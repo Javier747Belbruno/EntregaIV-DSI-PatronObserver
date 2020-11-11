@@ -141,12 +141,12 @@ INSERT INTO Mesa VALUES (4,1,4,3,3,5);
 INSERT INTO Pedidos VALUES (4,NULL,NULL
 									   ,CONVERT(datetime, '8/11/2020 08:28:01', 103) --fechaHoraPedido
 									   ,5 -- mesa 5
-									   ,7); --Historial pedido 7
+									   ,8); --Historial pedido 8
 
 INSERT INTO Pedidos VALUES (6,NULL,NULL
 									   ,CONVERT(datetime, '8/11/2020 08:30:00', 103) --fechaHoraPedido
 									   ,3 -- mesa 3
-									   ,8); -- Historial Pedido 8
+									   ,9); -- Historial Pedido 9
 
 
 
@@ -157,7 +157,7 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,CONVERT(datetime, '8/11/2020 08:30:00', 103) --hora
 									,2
 									,1 -- Ligado al nroPedido 1
-									,5 -- id HistorialPedido
+									,1 -- id HistorialPedido
 									,NULL
 									,1);  --ProductoDeCarta
 									
@@ -167,7 +167,7 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,CONVERT(datetime, '8/11/2020 08:31:00', 103) --hora
 									,2
 									,2 -- Ligado al nroPedido 2
-									,6 -- id HistorialPedido
+									,2 -- id HistorialPedido
 									,NULL
 									,3);  --ProductoDeCarta
 									
@@ -177,7 +177,7 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,CONVERT(datetime, '8/11/2020 08:32:00', 103) --hora
 									,2
 									,2 -- Ligado al nroPedido 2
-									,4 -- id HistorialPedido
+									,5 -- id HistorialPedido
 									,1 -- Un Menu patagonico
 									,NULL);  --ProductoDeCarta
 									
@@ -187,7 +187,7 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,CONVERT(datetime, '8/11/2020 08:33:00', 103) --hora
 									,2
 									,2 -- Ligado al nroPedido 2
-									,3 -- id HistorialPedido
+									,6 -- id HistorialPedido
 									,NULL
 									,2);  --ProductoDeCarta
 
@@ -196,37 +196,10 @@ INSERT INTO DetallePedidos VALUES(   NULL
 									,CONVERT(datetime, '8/11/2020 08:32:00', 103) --hora
 									,2
 									,1 -- Ligado al nroPedido 2
-									,9 -- id HistorialPedido
+									,7 -- id HistorialPedido
 									,1 -- Un Menu patagonico
 									,NULL);  --ProductoDeCarta
 									
-
-
-
-/*
-select * from DetallePedidos
-select * from HistorialEstado
-select * from Menu
-select * from mesa
-select * from Pedidos
-select * from ProductoDeCarta
-select * from Producto
-select * from Estado where nombre = 'En preparacion'
-
-*/
-delete from Estado where id_estado in (15,16)
-
-select * from HistorialEstado 
-update HistorialEstado set id_estado = 7 where id_estado in (8)
-/*update HistorialEstado set id_estado = 7 where id_historialEstado in (5,6)*/
-/*
-update DetallePedidos set id_historialEstado = 6 where nroDetallePedido = 1
-update DetallePedidos set id_historialEstado = 5 where nroDetallePedido = 2
-
-*/
-
-
-
 
 
 

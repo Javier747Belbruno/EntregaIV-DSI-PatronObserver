@@ -57,7 +57,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Hora,
@@ -142,7 +142,7 @@
             // lblCargando
             // 
             this.lblCargando.AutoSize = true;
-            this.lblCargando.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.lblCargando.BackColor = System.Drawing.SystemColors.Control;
             this.lblCargando.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lblCargando.Location = new System.Drawing.Point(402, 239);
             this.lblCargando.Name = "lblCargando";

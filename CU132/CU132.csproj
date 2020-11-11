@@ -194,6 +194,11 @@
       <LastGenOutput>EntityDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\bell_sound.wav" />
+    <None Include="Resources\Hamburger_icon.svg.png" />
+    <None Include="Resources\we.jpg" />
+    <None Include="Resources\WhatsApp-icon-PNG.png" />
+    <None Include="Resources\edit-profile-icon-22.jpg" />
+    <None Include="Resources\Restaurant.jpg" />
     <None Include="Resources\Graphicloads-Colorful-Long-Shadow-Restaurant.ico" />
     <None Include="Resources\sound.bmp" />
     <None Include="Resources\Green Bell v2-not Sounding.png" />

@@ -99,12 +99,23 @@ CREATE TABLE DetallePedidos (
 	FOREIGN KEY (id_productoDeCarta) REFERENCES ProductoDeCarta (id_productoDeCarta) ,
 );
 /*
+
+
+
 DROP TABLE DetallePedidos
-DROP table Menu
-drop table mesa
 drop table Pedidos
-drop table ProductoDeCarta
-drop table Producto
-drop table Estado
+drop table mesa
 drop table HistorialEstado
+drop table Estado
+drop table ProductoDeCarta
+DROP table Menu
+drop table Producto
+
+
+
+
+
+
+
+
 */

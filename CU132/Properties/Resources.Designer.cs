@@ -80,6 +80,16 @@ namespace CU132.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap edit_profile_icon_22 {
+            get {
+                object obj = ResourceManager.GetObject("edit-profile-icon-22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
         public static System.Drawing.Icon Graphicloads_Colorful_Long_Shadow_Restaurant {
@@ -105,6 +115,46 @@ namespace CU132.Properties {
         public static System.Drawing.Bitmap Green_Bell_v2_not_Sounding {
             get {
                 object obj = ResourceManager.GetObject("Green Bell v2-not Sounding", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Hamburger_icon_svg {
+            get {
+                object obj = ResourceManager.GetObject("Hamburger_icon.svg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Restaurant {
+            get {
+                object obj = ResourceManager.GetObject("Restaurant", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap we {
+            get {
+                object obj = ResourceManager.GetObject("we", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap WhatsApp_icon_PNG {
+            get {
+                object obj = ResourceManager.GetObject("WhatsApp-icon-PNG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
